@@ -22,6 +22,20 @@ SELECT TOP 10 PERCENT BusinessEntityID, PersonType, Title, FirstName, LastName F
 
 -----------------
 
+SELECT TOP 10 SalesOrderID, OrderDate, TotalDue FROM Sales.SalesOrderHeader ORDER BY TotalDue ASC;
+
+-----------------
+
+SELECT TOP 10 WITH TIES SalesOrderID, OrderDate, TotalDue FROM Sales.SalesOrderHeader ORDER BY TotalDue ASC;
+
+-----------------
+
+SELECT SalesOrderID, OrderDate, TotalDue FROM Sales.SalesOrderHeader ORDER BY TotalDue DESC;
+
+SELECT SalesOrderID, OrderDate, TotalDue FROM Sales.SalesOrderHeader ORDER BY TotalDue DESC OFFSET 5 ROWS FETCH NEXT 5 ROWS ONLY;
+
+-----------------
+
 SELECT BusinessEntityID, PersonType, Title, FirstName, LastName FROM Person.Person
 WHERE LastName = 'Smith';
 
@@ -122,6 +136,17 @@ WHERE FirstName + ' ' + LastName = 'Dylan Miller';
 
 -----------------
 
+SELECT Title, FirstName, LastName FROM Person.Person
+WHERE FirstName LIKE '%d%'
+
+SELECT Title, FirstName, LastName FROM Person.Person
+WHERE FirstName LIKE '%d%' COLLATE SQL_Latin1_General_CP1_CI_AS;
+
+SELECT Title, FirstName, LastName FROM Person.Person
+WHERE FirstName LIKE '%d%' COLLATE SQL_Latin1_General_CP1_CS_AS;
+
+-----------------
+
 SELECT * FROM Sales.SalesOrderHeader;
 SELECT * FROM Sales.SalesOrderDetail;
 SELECT * FROM Production.Product;
@@ -139,4 +164,7 @@ JOIN Sales.SalesOrderDetail AS sod
 ON soh.SalesOrderID = sod.SalesOrderID
 JOIN Production.Product AS p
 ON sod.ProductID = p.ProductID
-WHERE soh.SalesOrderID = 43662;
+WHERE soh.SalesOrderID = 43662
+ORDER BY p.ProductID ASC;
+
+-----------------
