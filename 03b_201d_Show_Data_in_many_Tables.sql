@@ -155,3 +155,48 @@ ON soh.SalesOrderID = sod.SalesOrderID
 JOIN Production.Product AS p
 ON sod.ProductID = p.ProductID;
 
+-------------
+
+SELECT * FROM Sales.Store;
+SELECT * FROM Purchasing.Vendor;
+
+-------------
+
+SELECT BusinessEntityID, Name, 'Store' AS Type FROM Sales.Store
+UNION
+SELECT BusinessEntityID, Name, 'Vendor' FROM Purchasing.Vendor;
+
+-------------
+
+SELECT BusinessEntityID, Name, 'Store' AS Type FROM Sales.Store
+WHERE BusinessEntityID < 300
+UNION
+SELECT BusinessEntityID, Name, 'Vendor' FROM Purchasing.Vendor
+WHERE BusinessEntityID < 1500
+ORDER BY BusinessEntityID
+
+-------------
+
+SELECT BusinessEntityID, Name, 'Store' AS Type FROM Sales.Store
+UNION ALL
+SELECT BusinessEntityID, Name, 'Vendor' FROM Purchasing.Vendor
+ORDER BY BusinessEntityID
+
+-------------
+
+SELECT ProductID FROM Production.Product;
+SELECT ProductID  FROM Sales.SalesOrderDetail;
+
+-------------
+
+SELECT ProductID FROM Production.Product
+INTERSECT 
+SELECT ProductID  FROM Sales.SalesOrderDetail;
+
+-------------
+
+SELECT ProductID FROM Production.Product
+EXCEPT
+SELECT ProductID  FROM Sales.SalesOrderDetail;
+
+-------------
