@@ -137,6 +137,13 @@ FROM uay.Customers AS c CROSS JOIN uay.Orders AS o;
 
 -------------
 
+SELECT * FROM uay.Employees;
+
+SELECT emp.EmployeeID, emp.Name AS EmployeeName, emp.ManagerID, mgr.Name AS ManagerName
+FROM uay.Employees AS emp LEFT JOIN uay.Employees AS mgr ON emp.ManagerID = mgr.EmployeeID;
+
+-------------
+
 SELECT * FROM Sales.SalesOrderHeader;
 SELECT * FROM Sales.SalesOrderDetail;
 SELECT * FROM Production.Product;
