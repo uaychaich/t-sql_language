@@ -1,3 +1,8 @@
+DECLARE @data01 TINYINT;
+SET @data01=255;
+SELECT @data01 AS TINYINT_Value;
+GO
+---------------------------------------
 DECLARE @data01 TINYINT;      SET @data01 = 5.123456789;
 DECLARE @data02 SMALLINT;     SET @data02 = 5.123456789;
 DECLARE @data03 INT;          SET @data03 = 5.123456789;
@@ -89,5 +94,29 @@ DECLARE @data01 NUMERIC(20,7);
 DECLARE @data02 NUMERIC(20,7);
 SELECT @data01=AVG(TotalDue), @data02=SUM(TotalDue) FROM Sales.SalesOrderHeader
 SELECT @data01 AS Average_TotalDue, @data02 AS Sum_TotalDue;
+GO
+---------------------------------------
+
+DECLARE @data01 INT = 10;
+DECLARE @data02 NVARCHAR(10) = N'20';
+
+SELECT @data01 + CAST(@data02 AS INT) AS Sum_Value, 
+       CONVERT(NVARCHAR(10), @data01) + @data02 AS Concat_Value,
+       @data01 + PARSE(@data02 AS INT USING 'th-TH') AS Parsed_Value;
+GO
+---------------------------------------
+
+DECLARE @data01 NVARCHAR(10) = N'Uaychai';
+SELECT CAST(@data01 AS INT) AS Converted_Value;
+GO
 
 ---------------------------------------
+
+DECLARE @data01 NVARCHAR(10) = N'Uaychai';
+SELECT TRY_CAST(@data01 AS INT) AS Converted_Value,
+       TRY_CONVERT(INT, @data01) AS Converted_Value2,
+       TRY_PARSE(@data01 AS INT) AS Converted_Value3;
+GO
+
+---------------------------------------
+

@@ -40,6 +40,11 @@ WHERE RANK IN (5,20,35);
 
 -----------------------------------------
 
+SELECT * FROM Production.Product p
+WHERE NOT EXISTS(SELECT * FROM Sales.SalesOrderDetail sod WHERE sod.ProductID = p.ProductID)
+
+-----------------------------------------
+
 SELECT SalesOrderID, YEAR(OrderDate) AS YearOrderDate, TotalDue, 
        (SELECT AVG(TotalDue) FROM Sales.SalesOrderHeader AS SOH2 ORDER BY AVG(TotalDue)) AS AvgTotalDue
 FROM Sales.SalesOrderHeader AS SOH;
