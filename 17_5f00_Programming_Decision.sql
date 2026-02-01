@@ -48,7 +48,10 @@ GO
 
 DECLARE @ProductID INT = 1;
 IF EXISTS (SELECT * FROM Sales.SalesOrderDetail WHERE ProductID = @ProductID)
+BEGIN
     PRINT CAST(@ProductID AS VARCHAR(10)) + ' exists in SalesOrderDetail';
+    SELECT * FROM Sales.SalesOrderDetail WHERE ProductID = @ProductID;
+END
 ELSE
     PRINT 'ProductID ' + CAST(@ProductID AS VARCHAR(10)) + ' does not exist in SalesOrderDetail';
 GO
@@ -64,22 +67,13 @@ GO
 
 -------------------------------------
 
-DECLARE @ExptectedOrderDue NUMERIC(7,2) = 10000;
-IF @ExptectedOrderDue >= ALL(SELECT TotalDue FROM Sales.SalesOrderHeader)
-    PRINT 'No order''s totaldue that have reach to ' + CAST(@ExptectedOrderDue AS VARCHAR(20));
-ELSE
-    PRINT 'There are some orders''totaldue that have reach to ' + CAST(@ExptectedOrderDue AS VARCHAR(20));
-GO
-
--------------------------------------
-
-DECLARE @ExptectedOrderDue NUMERIC(9,2) = 150000;
-IF @ExptectedOrderDue >= ALL(SELECT TotalDue FROM Sales.SalesOrderHeader)
-    PRINT 'No order''s totaldue that have reach to ' + CAST(@ExptectedOrderDue AS VARCHAR(20));
+DECLARE @ExpectedOrderDue NUMERIC(9,2) = 150000;
+IF @ExpectedOrderDue >= ALL(SELECT TotalDue FROM Sales.SalesOrderHeader)
+    PRINT 'No order''s totaldue that have reach to ' + CAST(@ExpectedOrderDue AS VARCHAR(20));
 ELSE
 BEGIN
-    PRINT 'There are some orders''totaldue that have reach to ' + CAST(@ExptectedOrderDue AS VARCHAR(20));
-    SELECT * FROM Sales.SalesOrderHeader WHERE TotalDue >= @ExptectedOrderDue;
+    PRINT 'There are some orders''totaldue that have reach to ' + CAST(@ExpectedOrderDue AS VARCHAR(20));
+    SELECT * FROM Sales.SalesOrderHeader WHERE TotalDue >= @ExpectedOrderDue;
 END
 GO
 
